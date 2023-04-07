@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.3.1/css/bootstrap.min.css">
+<head>
+    <meta charset="UTF-8">
+    <title>Create a new album</title>
+</head>
+<body>
+<div th:replace="template"></div>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-body">
+                <h1 class="card-title">Update Album</h1>
+                <form action="updateAlbum">
+                    <div class="form-group">
+                        <label class="control-label">Album ID</label>
+                        <input type="text" name="AlbumId" readonly th:value="${album.albumId}" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Album Name</label>
+                        <input type="text" name="AlbumName" th:value="${album.albumName}" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Album Artist</label>
+                        <input type="text" name="AlbumArtist" class="form-control" th:value="${album.albumArtist}" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Album Price</label>
+                        <input type="text" name="AlbumPrice" th:value="${album.albumPrice}" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Album Description</label>
+                        <input type="text" name="AlbumDescription" th:value="${album.albumDescription}" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Creation Date</label>
+                        <input type="date" name="creationDate" th:value="${#dates.format(album.AlbumReleaseDate, 'MM-dd-yyyy')}" class="form-control" />
+                    </div>
+                    <div class="form-group flex flex-row">
+                        <button type="submit" class="btn btn-primary">Edit</button>
+                        <a th:href="@{albumsList}" class="btn btn-dark">Back to list</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

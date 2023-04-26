@@ -11,18 +11,21 @@
     <div class="card">
         <div class="card-body">
             <h1 class="card-title">Add Album</h1>
-            <form action="saveAlbum" method="post">
+            <form th:action="@{saveAlbum}" method="post">
                 <div class="form-group">
                     <label class="control-label">Album Name</label>
-                    <input type="text" name="AlbumName" class="form-control" />
+                    <input type="text" name="AlbumName" class="form-control" th:value="${album.albumName}" />
+                    <p th:errors="*{album.albumName}" class="text-danger"></p>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Album Artist</label>
-                    <input type="text" name="AlbumArtist" class="form-control" />
+                    <input type="text" name="AlbumArtist" class="form-control" th:value="${album.albumArtist}" />
+                    <p th:errors="*{album.albumArtist}" class="text-danger"></p>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Album Price</label>
-                    <input type="text" name="AlbumPrice" class="form-control" />
+                    <input type="text" name="AlbumPrice" class="form-control" th:value="${album.albumPrice}" />
+                    <p th:errors="*{album.albumPrice}" class="text-danger"></p>
                 </div>
                 <div class="form-group">
                     <label class="control-label">Album Description</label>
@@ -30,7 +33,8 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label">Creation Date</label>
-                    <input type="date" name="creationDate" class="form-control" />
+                    <input type="date" name="AlbumReleaseDate" class="form-control" th:value="${album.albumReleaseDate}" />
+                    <p th:errors="*{album.albumReleaseDate}" class="text-danger"></p>
                 </div>
                 <div class="form-group flex flex-row">
                     <button type="submit" class="btn btn-primary">Add</button>

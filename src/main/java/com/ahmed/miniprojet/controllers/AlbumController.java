@@ -2,10 +2,13 @@ package com.ahmed.miniprojet.controllers;
 
 import com.ahmed.miniprojet.entities.Album;
 import com.ahmed.miniprojet.services.AlbumService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,24 +23,16 @@ public class AlbumController {
     AlbumService albumService;
 
     @RequestMapping("showCreate")
-    public String showCreate() {
+    public String showCreate(ModelMap modelMap) {
+        modelMap.addAttribute("album", new Album());
         return "createAlbum";
     }
 
     @RequestMapping("/saveAlbum")
-    public String saveAlbum(
-            @ModelAttribute("album") Album album,
-            @RequestParam("creationDate") String date,
-            ModelMap modelMap
-            ) throws ParseException {
-        // Convert the date
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date creationDate = dateFormat.parse(String.valueOf(date));
-        album.setAlbumReleaseDate(creationDate);
-
-        Album savedAlbum = albumService.saveAlbum(album);
-        String msg = "Album saved with ID: " + savedAlbum.getAlbumId();
-        modelMap.addAttribute("msg", msg);
+    public String saveAlbum(@Valid Album album, BindingResult bindingResult) {
+        if (!bindingResult.hasErrors()) {
+            albumService.saveAlbum(album);
+        }
         return "createAlbum";
     }
 

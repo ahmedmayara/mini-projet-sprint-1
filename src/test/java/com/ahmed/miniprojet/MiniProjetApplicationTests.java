@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Date;
+import java.util.List;
 
 @SpringBootTest
 class MiniProjetApplicationTests {
@@ -58,5 +59,31 @@ class MiniProjetApplicationTests {
         Album album = albumRepository.findById(1L).get();
         album.setAlbumName("Album 1 Updated");
         albumRepository.save(album);
+    }
+
+    @Test
+    void testfindByNamePrice() {
+        List<Album> albums = albumRepository.findByNamePrice("Album 1", 10.0);
+        for (Album a : albums) {
+            System.out.println(a);
+        }
+    }
+
+    @Test
+    void testfindByLabel() {
+        Label label = new Label();
+        label.setLabelId(1L);
+        List<Album> albums = albumRepository.findByLabel(label);
+        for (Album a : albums) {
+            System.out.println(a);
+        }
+    }
+
+    @Test
+    void testtrierAlbumsNomsPrix() {
+        List<Album> albums = albumRepository.trierAlbumsNomsPrix();
+        for (Album a : albums) {
+            System.out.println(a);
+        }
     }
 }

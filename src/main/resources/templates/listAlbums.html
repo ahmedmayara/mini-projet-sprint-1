@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <link rel="stylesheet" type="text/css" href="webjars/bootstrap/4.3.1/css/bootstrap.min.css">
 <head>
     <meta charset="UTF-8">
@@ -21,8 +22,9 @@
                     <th>Album Artist</th>
                     <th>Description</th>
                     <th>Album Price</th>
+                    <th>Album Label</th>
                     <th>Release Date</th>
-                    <th colspan="2">Actions</th>
+                    <th colspan="2" sec:authorize="hasRole('ADMIN')">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -32,9 +34,11 @@
                     <td th:text="${album.AlbumArtist}"></td>
                     <td th:text="${album.AlbumDescription}"></td>
                     <td th:text="${album.AlbumPrice}"></td>
+                    <td   th:if= "${!#strings.isEmpty(album.label)}"   th:text="${album.label.labelName}"></td>
+                    <td   th:if= "${#strings.isEmpty(album.label)}"     th:text="${'No label'}"></td>
                     <td th:text="${#dates.format(album.AlbumReleaseDate, 'dd-MM-yyyy')}"></td>
-                    <td>
-                        <a th:href="@{deleteAlbum(albumId=${album.AlbumId}, page=${currentPage}, size=${size})}" class="btn btn-danger" onclick="confirm('Are you sure?')">Delete</a>
+                    <td sec:authorize="hasRole('ADMIN')">
+                        <a th:href="@{deleteAlbum(albumId=${album.AlbumId}, page=${currentPage}, size=${size})}" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
                         <a th:href="@{showUpdate(albumId=${album.AlbumId}, page=${currentPage}, size=${size})}" class="btn btn-primary">Edit</a>
                     </td>
                 </tr>

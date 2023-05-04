@@ -9,32 +9,37 @@
 <div th:replace="template"></div>
     <div class="container mt-5">
         <div class="card">
+            <div class="card-header" th:if="${mode=='update'}">Edit Album</div>
             <div class="card-body">
                 <h1 class="card-title">Update Album</h1>
                 <form action="updateAlbum">
                     <div class="form-group">
                         <label class="control-label">Album ID</label>
-                        <input type="text" name="AlbumId" readonly th:value="${album.albumId}" class="form-control" />
+                        <input type="text" name="AlbumId" readonly th:value="${album.AlbumId}" class="form-control" />
                     </div>
                     <div class="form-group">
                         <label class="control-label">Album Name</label>
                         <input type="text" name="AlbumName" th:value="${album.albumName}" class="form-control" />
+                        <p th:errors=*{album.AlbumName} class="text-danger"></p>
                     </div>
                     <div class="form-group">
                         <label class="control-label">Album Artist</label>
                         <input type="text" name="AlbumArtist" class="form-control" th:value="${album.albumArtist}" />
+                        <span th:errors="*{album.AlbumArtist}" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label class="control-label">Album Price</label>
                         <input type="text" name="AlbumPrice" th:value="${album.albumPrice}" class="form-control" />
+                        <p th:errors=*{album.AlbumPrice} class="text-danger"></p>
                     </div>
                     <div class="form-group">
                         <label class="control-label">Album Description</label>
-                        <input type="text" name="AlbumDescription" th:value="${album.albumDescription}" class="form-control" />
+                        <input type="text" name="AlbumDescription" th:value="${album.AlbumDescription}" class="form-control" />
                     </div>
                     <div class="form-group">
                         <label class="control-label">Creation Date</label>
-                        <input type="date" name="creationDate" th:value="${#dates.format(album.AlbumReleaseDate, 'MM-dd-yyyy')}" class="form-control" />
+                        <input type="date" name="AlbumReleaseDate" th:value="${#dates.format(album.albumReleaseDate, 'MM-dd-yyyy')}" class="form-control" />
+                        <p th:errors=*{album.AlbumReleaseDate} class="text-danger"></p>
                     </div>
                     <div class="form-group flex flex-row">
                         <button type="submit" class="btn btn-primary">Edit</button>

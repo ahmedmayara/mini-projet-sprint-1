@@ -16,14 +16,15 @@ public class Album {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long AlbumId;
-    @NotNull
+    @NotEmpty(message = "The album name field is required.")
     @Size(min = 3, max = 35)
     private String AlbumName;
-    @NotNull
+    @NotEmpty(message = "The artist field is required.")
     private String AlbumArtist;
     private String AlbumDescription;
     @Min(value = 10)
     @Max(value = 1500)
+    @NotNull(message = "The price field is required.")
     private Double AlbumPrice;
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
